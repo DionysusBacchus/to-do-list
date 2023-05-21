@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ListItem from './ListItem';
 
 const uuid = require("uuid");
 
+function getTasksFromStorage() {
+    const savedData = localStorage.getItem('myData');
+    if (savedData) {
+        return JSON.parse(savedData);
+    }
+    return [];
+}
+
 export default function List() {
+    const [tasksArray, setTasksArray] = useState(getTasksFromStorage());
+
+    useEffect(() => {
+        const string = JSON.stringify(tasksArray);
+
+        localStorage.setItem('myData', string);
+    }, [tasksArray]);
 
     const [inputValue, setInputValue] = useState('');
-    const [arrayValues, setArrayValues] = useState(data);
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -16,17 +30,18 @@ export default function List() {
         if (event.key === 'Enter') {
           event.preventDefault();
           if (inputValue.trim() !== '') {
-            setArrayValues([...arrayValues, {id: uuid.v4(), text: inputValue, done: false}]);
+            setTasksArray([...tasksArray, {id: uuid.v4(), text: inputValue, done: false}]);
             setInputValue('');
           }
         }
       };
     
       const handleDeleteItem = (id) => {
-        setArrayValues(arrayValues.filter(item => item.id !== id));
+        setTasksArray(tasksArray.filter(item => item.id !== id));
       };
+
     const handleDoneItem = (id, isDone) => {
-        setArrayValues(arrayValues.map(item => {
+        setTasksArray(tasksArray.map(item => {
             if (item.id === id) {
                 item.done = isDone;
             }
@@ -36,7 +51,7 @@ export default function List() {
 
     return (
       <div>
-      {arrayValues.map((item) => (
+      {tasksArray.map((item) => (
         <ListItem item={item} key={item.id} handles={{deleteItem: handleDeleteItem, doneItem: handleDoneItem}}/>
       ))}
       <input
@@ -47,12 +62,4 @@ export default function List() {
           />
       </div>
     );
-  }
-  
-  let data = [
-    {id: uuid.v4(), text:"HHHH", done: true}, 
-    {id: uuid.v4(), text:"hohoho", done: false}, 
-    {id: uuid.v4(), text:"hihihi", done: true}, 
-    {id: uuid.v4(), text:"heheh", done: false}, 
-    {id: uuid.v4(), text:"huhuhu", done: false}
-  ];
+}
