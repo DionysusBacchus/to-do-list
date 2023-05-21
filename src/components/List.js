@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ListItem from './ListItem';
+import InputField from './InputField';
 
 const uuid = require("uuid");
 
@@ -20,20 +21,9 @@ export default function List() {
     localStorage.setItem('myData', string);
   }, [tasksArray]);
 
-  const [inputValue, setInputValue] = useState('');
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleAddItem = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      if (inputValue.trim() !== '') {
-        setTasksArray([...tasksArray, { id: uuid.v4(), text: inputValue, done: false }]);
-        setInputValue('');
-      }
-    }
+  const handleAddItem = (inputValue) => {
+    setTasksArray([...tasksArray, { id: uuid.v4(), text: inputValue, done: false }]);
   };
 
   const handleDeleteItem = (id) => {
@@ -63,12 +53,7 @@ export default function List() {
       {tasksArray.map((item) => (
         <ListItem item={item} key={item.id} handles={{ deleteItem: handleDeleteItem, doneItem: handleDoneItem, editItem: handleEditItem}} />
       ))}
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyPress={handleAddItem}
-      />
+      <InputField handleAddItem={handleAddItem} />
     </div>
   );
 }
