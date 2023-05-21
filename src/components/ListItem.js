@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 
-export default function ListItem({item, deleteItem}) {
+export default function ListItem({item, handles}) {
     const [isDone, setIsDone] = useState(item.done);
 
     const handleDeleteItem = () => {
-      deleteItem(item.id);
+      handles.deleteItem(item.id);
     }
 
     const handleCheckboxChange = () => {
@@ -16,6 +16,9 @@ export default function ListItem({item, deleteItem}) {
       textDecoration: isDone ? 'line-through' : 'none'
     };
     
+    useEffect(() => {
+      handles.doneItem(item.id, isDone);
+    }, [isDone]);
 
     return (
       <div key={item.id}>

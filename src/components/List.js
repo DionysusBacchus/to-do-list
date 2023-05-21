@@ -25,11 +25,19 @@ export default function List() {
       const handleDeleteItem = (id) => {
         setArrayValues(arrayValues.filter(item => item.id !== id));
       };
+    const handleDoneItem = (id, isDone) => {
+        setArrayValues(arrayValues.map(item => {
+            if (item.id === id) {
+                item.done = isDone;
+            }
+            return item;
+        }))
+    };
 
     return (
       <div>
       {arrayValues.map((item) => (
-        <ListItem item={item} key={item.id} deleteItem={handleDeleteItem}/>
+        <ListItem item={item} key={item.id} handles={{deleteItem: handleDeleteItem, doneItem: handleDoneItem}}/>
       ))}
       <input
             type="text"
