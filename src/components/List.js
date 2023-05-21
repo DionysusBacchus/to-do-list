@@ -49,10 +49,19 @@ export default function List() {
     }))
   };
 
+  const handleEditItem = (id, text) => {
+    setTasksArray(tasksArray.map(item => {
+      if (item.id === id) {
+        item.text = text;
+      }
+      return item;
+    }))
+  };
+
   return (
     <div>
       {tasksArray.map((item) => (
-        <ListItem item={item} key={item.id} handles={{ deleteItem: handleDeleteItem, doneItem: handleDoneItem }} />
+        <ListItem item={item} key={item.id} handles={{ deleteItem: handleDeleteItem, doneItem: handleDoneItem, editItem: handleEditItem}} />
       ))}
       <input
         type="text"
