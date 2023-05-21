@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
-export default function ListItem({text, done}) {
-    const [isDone, setIsDone] = useState(done);
+export default function ListItem({item, deleteItem}) {
+    const [isDone, setIsDone] = useState(item.done);
+
+    const handleDeleteItem = () => {
+      deleteItem(item.id);
+    }
 
     const handleCheckboxChange = () => {
       setIsDone(!isDone);
@@ -11,19 +15,23 @@ export default function ListItem({text, done}) {
     const labelStyle = {
       textDecoration: isDone ? 'line-through' : 'none'
     };
+    
 
     return (
-      <div>
+      <div key={item.id}>
         <input 
           type="checkbox"
           checked={isDone}
           onChange={handleCheckboxChange} 
-          name="check"
+          name={item.id}
+          key={item.id}
         />
-        <label style={labelStyle} for="check">{text}</label>
-        <span class="edit-icon">&#9998;</span>
-        <span class="delete-icon">&#10006;</span>
-        
+        <label style={labelStyle} htmlFor={item.id}>{item.text}</label>
+        <span className="edit-icon">&#9998;</span>
+        <button 
+          className="delete-icon"
+          onClick={handleDeleteItem}
+          >&#10006;</button>
       </div>
     );
   }

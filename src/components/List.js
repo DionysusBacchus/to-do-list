@@ -21,11 +21,15 @@ export default function List() {
           }
         }
       };
+    
+      const handleDeleteItem = (id) => {
+        setArrayValues(arrayValues.filter(item => item.id !== id));
+      };
 
     return (
       <div>
       {arrayValues.map((item) => (
-        <ListItem text={item.text} done={item.done} />
+        <ListItem item={item} key={item.id} deleteItem={handleDeleteItem}/>
       ))}
       <input
             type="text"
