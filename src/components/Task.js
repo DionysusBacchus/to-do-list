@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import EditableLabel from './EditableLabel';
 
-export default function ListItem({ item, handles }) {
+export default function Task({ item, handles }) {
   const [isDone, setIsDone] = useState(item.done);
 
   const handleDeleteItem = () => {

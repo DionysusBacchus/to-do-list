@@ -1,8 +1,8 @@
 import React from 'react';
-import ListItem from './ListItem';
+import Task from './Task';
 import InputField from './InputField';
-import useFilter from '../useFiler';
-import useList from '../useList';
+import useFilter from '../hooks/useFiler';
+import useList from '../hooks/useList';
 import { randomTAGs, getRandomItem } from '../mock';
 
 const uuid = require("uuid");
@@ -36,7 +36,7 @@ export default function TaskList() {
 
       {tasksArray.map((item) => (
         <div style = {filerByTag(item.tag)} key={item.id}>
-        <ListItem 
+        <Task 
           item={item} 
           key={item.id} 
           handles={{ deleteItem: List.delete, editItem: List.edit}} />

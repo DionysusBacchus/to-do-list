@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-import { getArrayFromStorage, setArrayToStorage } from "./utils";
+import { getArrayFromStorage, setArrayToStorage } from "../utils";
 
 export default function useList(dataName) {
   const [dataArray, setDataArray] = useState(getArrayFromStorage(dataName));
