@@ -9,6 +9,7 @@ export default function ListItem({ item, handles }) {
   }
 
   const handleCheckboxChange = () => {
+    handles.doneItem(item.id, !isDone);
     setIsDone(!isDone);
   };
 
@@ -19,10 +20,6 @@ export default function ListItem({ item, handles }) {
   const labelStyle = {
     textDecoration: isDone ? 'line-through' : 'none'
   };
-
-  useEffect(() => {
-    handles.doneItem(item.id, isDone);
-  }, [isDone]);
 
   return (
     <div key={item.id}>
