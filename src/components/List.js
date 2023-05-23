@@ -1,24 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import ListItem from './ListItem';
 import InputField from './InputField';
+import { getArrayFromStorage, saveArrayToStorage } from '../utils';
 
 const uuid = require("uuid");
 
-function getTasksFromStorage() {
-  const savedData = localStorage.getItem('myData');
-  if (savedData) {
-    return JSON.parse(savedData);
-  }
-  return [];
-}
-
 export default function List() {
-  const [tasksArray, setTasksArray] = useState(getTasksFromStorage());
+  const [tasksArray, setTasksArray] = useState(getArrayFromStorage('myData'));
 
   useEffect(() => {
-    const string = JSON.stringify(tasksArray);
-
-    localStorage.setItem('myData', string);
+    saveArrayToStorage('myData', tasksArray);
   }, [tasksArray]);
 
 
