@@ -7,7 +7,7 @@ export function getArrayFromStorage(variableName) {
   return [];
 }
 
-export function saveArrayToStorage(variableName, newArray) {
+export function setArrayToStorage(variableName, newArray) {
   const string = JSON.stringify(newArray);
   localStorage.setItem(variableName, string);
 }

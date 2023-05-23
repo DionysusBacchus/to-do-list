@@ -1,9 +1,9 @@
-import { getArrayFromStorage, saveArrayToStorage } from './utils';
+import { getArrayFromStorage, setArrayToStorage } from './utils';
 const uuid = require("uuid");
 
 const generateRandomTAG = () => {
   const newValues = [ uuid.v4(), uuid.v4(), uuid.v4() ];
-  saveArrayToStorage('myTAGs', newValues);
+  setArrayToStorage('myTAGs', newValues);
   return newValues;
 }
 
