@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import ListItem from './ListItem';
 import InputField from './InputField';
 import { getArrayFromStorage, saveArrayToStorage } from '../utils';
+import useFilter from '../useFiler';
+import { randomTAGs, getRandomItem } from '../mock';
 
 const uuid = require("uuid");
 
+
 export default function List() {
   const [tasksArray, setTasksArray] = useState(getArrayFromStorage('myData'));
+  const [chooseTag, buttonStyle, filerByTag] = useFilter();
 
   useEffect(() => {
     saveArrayToStorage('myData', tasksArray);
@@ -14,7 +18,8 @@ export default function List() {
 
 
   const handleAddItem = (inputValue) => {
-    setTasksArray([...tasksArray, { id: uuid.v4(), text: inputValue, done: false }]);
+    const randomTag = getRandomItem(randomTAGs);
+    setTasksArray([...tasksArray, { id: uuid.v4(), text: inputValue, done: false, tag: randomTag}]);
   };
 
   const handleDeleteItem = (id) => {
@@ -41,10 +46,26 @@ export default function List() {
 
   return (
     <div>
+      <span><InputField handleAddItem={handleAddItem} /></span>
+      <span>
+        {randomTAGs.map((item, index) => (
+          <button
+          onClick={() => chooseTag(item)}
+          style={buttonStyle(item)}
+          key={item}
+        > {index}</button>
+        ))}
+      </span>
+
       {tasksArray.map((item) => (
-        <ListItem item={item} key={item.id} handles={{ deleteItem: handleDeleteItem, doneItem: handleDoneItem, editItem: handleEditItem}} />
+        <div style = {filerByTag(item.tag)} key={item.id}>
+        <ListItem 
+          item={item} 
+          key={item.id} 
+          handles={{ deleteItem: handleDeleteItem, doneItem: handleDoneItem, editItem: handleEditItem}} />
+        </div>
       ))}
-      <InputField handleAddItem={handleAddItem} />
+      
     </div>
   );
 }

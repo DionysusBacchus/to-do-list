@@ -20,9 +20,9 @@ export default function ListItem({ item, handles }) {
   const labelStyle = {
     textDecoration: isDone ? 'line-through' : 'none'
   };
-
+  
   return (
-    <div key={item.id}>
+    <div>
       <input
         type="checkbox"
         checked={isDone}
