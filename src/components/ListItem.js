@@ -9,12 +9,14 @@ export default function ListItem({ item, handles }) {
   }
 
   const handleCheckboxChange = () => {
-    handles.doneItem(item.id, !isDone);
+    const newItem = { ...item, done: !isDone };
+    handles.editItem(item.id, newItem);
     setIsDone(!isDone);
   };
 
   const handleEditItem = (newValue) => {
-    handles.editItem(item.id, newValue);
+    const newItem = { ...item, text: newValue };
+    handles.editItem(item.id, newItem);
   };
 
   const labelStyle = {

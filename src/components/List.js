@@ -26,19 +26,10 @@ export default function List() {
     setTasksArray(tasksArray.filter(item => item.id !== id));
   };
 
-  const handleDoneItem = (id, isDone) => {
+  const handleEditItem = (id, newItem) => {
     setTasksArray(tasksArray.map(item => {
       if (item.id === id) {
-        item.done = isDone;
-      }
-      return item;
-    }))
-  };
-
-  const handleEditItem = (id, text) => {
-    setTasksArray(tasksArray.map(item => {
-      if (item.id === id) {
-        item.text = text;
+        item = newItem;
       }
       return item;
     }))
@@ -62,7 +53,7 @@ export default function List() {
         <ListItem 
           item={item} 
           key={item.id} 
-          handles={{ deleteItem: handleDeleteItem, doneItem: handleDoneItem, editItem: handleEditItem}} />
+          handles={{ deleteItem: handleDeleteItem, editItem: handleEditItem}} />
         </div>
       ))}
       
