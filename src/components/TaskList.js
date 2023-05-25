@@ -1,27 +1,54 @@
 import React from 'react';
 import Task from './Task';
 import InputField from './InputField';
-import { randomTAGs, getRandomItem } from '../mock';
+import Dropdown from './Dropdown';
+import { TagContext } from '../App';
 
 
 const uuid = require("uuid");
 
 export default function TaskList({tasksArray, List, filerByTag }) {
+  const { tagsArray, noneTagId } = React.useContext(TagContext);
+  const [newTask, setNewTask] = React.useState({ id: uuid.v4(), text: '', done: false, tag: noneTagId });
 
-  const createTask = (text) => {
-    const randomTag = getRandomItem(randomTAGs);
-    return { id: uuid.v4(), text: text, done: false, tag: randomTag.id};
+  React.useEffect(() => {
+    setNewTask({ ...newTask, tag: noneTagId })
+  }, [noneTagId])
+
+  const handleAddTask = (text) => {
+    handleNewTaskText(text);
+    handleSaveNewTask();
   }
 
-  const addTask = (text) => {
-    const newTask = createTask(text);
-    List.add(newTask);
+  const handleNewTaskText = (text) => {
+    setNewTask({ ...newTask, text: text })
+  }
+
+  const handleNewTaskTag = (tag) => {
+    setNewTask({ ...newTask, tag: tag })
+  }
+
+  const handleSaveNewTask = () => {
+    if (newTask.text.trim() === '') return;
+    List.add(newTask)
+    setNewTask({ ...newTask, text: "", id: uuid.v4() })
   }
 
   return (
     <div>
-      <span><InputField handleAddItem={addTask} /></span>
-
+      <span>
+        <Dropdown
+          list={tagsArray}
+          handleChooseItem={handleNewTaskTag}
+          initialValue={noneTagId}
+        />
+      </span>
+      <span>
+        <InputField
+          onEnter={handleAddTask}
+          onChange={handleNewTaskText} />
+      </span>
+      <button onClick={handleSaveNewTask}>Add New Task</button>
       {tasksArray.map((item) => (
         <div style = {filerByTag(item.tag)} key={item.id}>
         <Task 
@@ -30,7 +57,6 @@ export default function TaskList({tasksArray, List, filerByTag }) {
           handles={{ deleteItem: List.delete, editItem: List.edit}} />
         </div>
       ))}
-      
     </div>
   );
 }
