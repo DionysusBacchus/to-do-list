@@ -13,7 +13,7 @@ export default function TaskList() {
 
   const createTask = (text) => {
     const randomTag = getRandomItem(randomTAGs);
-    return { id: uuid.v4(), text: text, done: false, tag: randomTag};
+    return { id: uuid.v4(), text: text, done: false, tag: randomTag.id};
   }
 
   const addTask = (text) => {
@@ -25,12 +25,12 @@ export default function TaskList() {
     <div>
       <span><InputField handleAddItem={addTask} /></span>
       <span>
-        {randomTAGs.map((item, index) => (
+        {randomTAGs.map((item) => (
           <button
-          onClick={() => chooseTag(item)}
-          style={buttonStyle(item)}
-          key={item}
-        > {index}</button>
+          onClick={() => chooseTag(item.id)}
+          style={buttonStyle(item.id)}
+          key={item.id}
+        > {item.text}</button>
         ))}
       </span>
 

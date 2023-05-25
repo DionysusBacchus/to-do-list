@@ -2,13 +2,13 @@ import { getArrayFromStorage, setArrayToStorage } from './utils';
 const uuid = require("uuid");
 
 const generateRandomTAG = () => {
-  const newValues = [ uuid.v4(), uuid.v4(), uuid.v4() ];
-  setArrayToStorage('myTAGs', newValues);
+  const newValues = [ {id: uuid.v4(), text: "one"}, {id: uuid.v4(), text: "two"}, {id: uuid.v4(), text: "three"} ];
+  setArrayToStorage('myTags', newValues);
   return newValues;
 }
 
 const getTAGS = () => {
-  const savedTAGs = getArrayFromStorage('myTAGs');
+  const savedTAGs = getArrayFromStorage('myTags');
   if (savedTAGs.length === 0) {
     return generateRandomTAG();
   }
