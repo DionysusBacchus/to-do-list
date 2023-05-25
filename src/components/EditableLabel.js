@@ -1,36 +1,19 @@
 import React, { useState } from "react";
+import InputField from "./InputField";
 
 export default function EditableLabel({ initialValue, onSave, style }) {
   const [editing, setEditing] = useState(false);
-  const [value, setValue] = useState(initialValue);
 
-  const handleInputChange = (e) => {
-    setValue(e.target.value);
-  };
-
-  const handleSave = () => {
+  const handleSave = (value) => {
     onSave(value);
     setEditing(false);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSave();
-    }
-  };
-
   if (editing) {
     return (
-      <input
-        type="text"
-        value={value}
-        onChange={handleInputChange}
-        onBlur={handleSave}
-        onKeyDown={handleKeyDown}
-        autoFocus
-      />
+      <InputField initialValue={initialValue} onBlur={handleSave} onEnter={handleSave}/>
     );
   }
 
-  return <span style={style} onClick={() => setEditing(true)}>{value}</span>;
+  return <span style={style} onClick={() => setEditing(true)}>{initialValue}</span>;
 }
