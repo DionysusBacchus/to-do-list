@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FilterContext } from '../App';
 import InputField from './InputField';
 
@@ -7,7 +7,7 @@ export default function Tag({ item, handles, noneTagId }) {
   const [editing, setEditing] = React.useState(false);
   const [newText, setNewText] = React.useState(item.text);
 
-  const [chooseTag, buttonStyle, handleTagDelete] = useContext(FilterContext);
+  const [chooseTag, buttonStyle, handleTagDelete] = React.useContext(FilterContext);
 
   const handleDeleteTag = () => {
     handleTagDelete(item.id);

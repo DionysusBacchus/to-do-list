@@ -7,13 +7,9 @@ import { TagContext } from '../App';
 
 const uuid = require("uuid");
 
-export default function TaskList({tasksArray, List, filerByTag }) {
+export default function TaskList({ tasksArray, List, filerByTag }) {
   const { tagsArray, noneTagId } = React.useContext(TagContext);
   const [newTask, setNewTask] = React.useState({ id: uuid.v4(), text: '', done: false, tag: noneTagId });
-
-  React.useEffect(() => {
-    setNewTask({ ...newTask, tag: noneTagId })
-  }, [noneTagId])
 
   const handleAddTask = (text) => {
     handleNewTaskText(text);
@@ -50,11 +46,11 @@ export default function TaskList({tasksArray, List, filerByTag }) {
       </span>
       <button onClick={handleSaveNewTask}>Add New Task</button>
       {tasksArray.map((item) => (
-        <div style = {filerByTag(item.tag)} key={item.id}>
-        <Task 
-          item={item} 
-          key={item.id} 
-          handles={{ deleteItem: List.delete, editItem: List.edit}} />
+        <div style={filerByTag(item.tag)} key={item.id}>
+          <Task
+            item={item}
+            key={item.id}
+            handles={{ deleteItem: List.delete, editItem: List.edit }} />
         </div>
       ))}
     </div>

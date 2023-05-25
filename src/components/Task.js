@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import EditableLabel from './EditableLabel';
 import Dropdown from './Dropdown';
 import { TagContext } from '../App';
 
 export default function Task({ item, handles }) {
-  const [isDone, setIsDone] = useState(item.done);
+  const [isDone, setIsDone] =React.useState(item.done);
   const {tagsArray} = React.useContext(TagContext);
 
   const handleDeleteItem = () => {

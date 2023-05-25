@@ -1,10 +1,11 @@
-import { useState, useEffect} from "react";
+import React from "react";
+
 import { getArrayFromStorage, setArrayToStorage } from "../utils";
 
 export default function useList(dataName) {
-  const [dataArray, setDataArray] = useState(getArrayFromStorage(dataName));
+  const [dataArray, setDataArray] = React.useState(getArrayFromStorage(dataName));
 
-  useEffect(() => {
+  React.useState(() => {
     setArrayToStorage(dataName, dataArray);
   }, [dataArray, dataName]);
 
@@ -34,5 +35,5 @@ export default function useList(dataName) {
     }))
   };
 
-  return [dataArray, {add: handleAddItem, delete: handleDeleteItem, edit: handleEditItem, changeAll: changeKeyValue}]
+  return [dataArray, { add: handleAddItem, delete: handleDeleteItem, edit: handleEditItem, changeAll: changeKeyValue }]
 }

@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import InputField from './InputField';
 
-export default function AddTag ({ onAdd }) {
-  const [isEditing, setIsEditing] = useState(false);
+export default function AddTag({ onAdd }) {
+  const [isEditing, setIsEditing] = React.useState(false);
 
   const handleButtonClick = () => {
     setIsEditing(true);
@@ -15,7 +15,7 @@ export default function AddTag ({ onAdd }) {
 
   if (isEditing) {
     return (
-      <InputField onEnter={handleRecieveInput}/>
+      <InputField onEnter={handleRecieveInput} />
     );
   }
 
@@ -24,4 +24,4 @@ export default function AddTag ({ onAdd }) {
       Add Tag
     </button>
   );
-};
+}

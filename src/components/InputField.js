@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function InputField({ onChange, onEnter, onBlur, initialValue }) {
 
-  const [inputValue, setInputValue] = useState(initialValue || '');
+  const [inputValue, setInputValue] = React.useState(initialValue || '');
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -25,12 +25,12 @@ export default function InputField({ onChange, onEnter, onBlur, initialValue }) 
 
   return (
     <input
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleInputConfirm}
-        onBlur={handleInputBlur}
-        autoFocus
+      type="text"
+      value={inputValue}
+      onChange={handleInputChange}
+      onKeyDown={handleInputConfirm}
+      onBlur={handleInputBlur}
+      autoFocus
     />
   )
 

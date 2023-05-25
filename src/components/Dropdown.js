@@ -27,4 +27,4 @@ export default function Dropdown({ list, handleChooseItem, initialValue }) {
       ))}
     </select>
   );
-};
+}
