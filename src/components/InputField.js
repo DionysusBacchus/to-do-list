@@ -24,6 +24,7 @@ export default function InputField({ handleAddItem }) {
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleInputConfirm}
+        autoFocus
     />
   )
 
