@@ -15,6 +15,7 @@ export const FilterContext = createContext();
 function App() {
   const [chooseTag, buttonStyle, filerByTag] = useFilter();
   const [tagsArray, List] = useList('myTags');
+  const [tasksArray, taskList] = useList('myData');
   const [noneTagId, setNone] = useState(uuid.v4());
 
   React.useEffect(() => {
@@ -32,12 +33,14 @@ function App() {
     const newTag = { id: uuid.v4(), text: text };
     List.add(newTag);
   };
-
+  const handleTagDelete = (tagId) => {
+    taskList.changeAll("tag", tagId, noneTagId )
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        <FilterContext.Provider value={[chooseTag, buttonStyle]}>
+        <FilterContext.Provider value={[chooseTag, buttonStyle, handleTagDelete]}>
           <div>
             <AddTag onAdd={addTag} />
             {tagsArray.map((tag) => (
@@ -51,7 +54,7 @@ function App() {
           </div>
         </FilterContext.Provider>
         <TagContext.Provider value={{ tagsArray, noneTagId }}>
-          <TaskList filerByTag={filerByTag} />
+          <TaskList filerByTag={filerByTag} tasksArray={tasksArray} List={taskList}/>
         </TagContext.Provider>
       </header>
     </div>

@@ -1,14 +1,12 @@
 import React from 'react';
 import Task from './Task';
 import InputField from './InputField';
-import useList from '../hooks/useList';
 import { randomTAGs, getRandomItem } from '../mock';
 
 
 const uuid = require("uuid");
 
-export default function TaskList({filerByTag}) {
-  const [tasksArray, List] = useList('myData');
+export default function TaskList({tasksArray, List, filerByTag }) {
 
   const createTask = (text) => {
     const randomTag = getRandomItem(randomTAGs);

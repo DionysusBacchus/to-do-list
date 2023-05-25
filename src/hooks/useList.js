@@ -25,5 +25,14 @@ export default function useList(dataName) {
     }))
   };
 
-  return [dataArray, {add: handleAddItem, delete: handleDeleteItem, edit: handleEditItem}]
+  const changeKeyValue = (key, oldValue, newValue) => {
+    setDataArray(dataArray.map(item => {
+      if (item[key] === oldValue) {
+        item[key] = newValue;
+      }
+      return item;
+    }))
+  };
+
+  return [dataArray, {add: handleAddItem, delete: handleDeleteItem, edit: handleEditItem, changeAll: changeKeyValue}]
 }

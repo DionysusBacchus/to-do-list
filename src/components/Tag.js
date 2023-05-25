@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import { FilterContext } from '../App';
 
 export default function Tag({ item, handles, noneTagId }) {
-  const [chooseTag, buttonStyle] = useContext(FilterContext);
+  const [chooseTag, buttonStyle, handleTagDelete] = useContext(FilterContext);
 
   const handleDeleteTag = () => {
+    handleTagDelete(item.id);
     handles.deleteTag(item.id);
   }
 
