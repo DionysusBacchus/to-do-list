@@ -5,8 +5,7 @@ import AddTag from "./AddTag";
 
 const uuid = require("uuid");
 
-export default function TagList() {
-  const [tagsArray, List] = useList('myTags');
+export default function TagList({ tagsArray, List}) {
 
   const addTag = (text) => {
     const newTag = { id: uuid.v4(), text: text };
