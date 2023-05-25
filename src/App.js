@@ -43,6 +43,7 @@ function App() {
             {tagsArray.map((tag) => (
               <span key={tag.id}>
                 <Tag
+                  noneTagId={noneTagId}
                   item={tag}
                   handles={{ deleteTag: List.delete, editTag: List.edit }} />
               </span>

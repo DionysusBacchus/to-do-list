@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { FilterContext } from '../App';
 
-export default function Tag({ item, handles }) {
+export default function Tag({ item, handles, noneTagId }) {
   const [chooseTag, buttonStyle] = useContext(FilterContext);
 
   const handleDeleteTag = () => {
@@ -15,15 +15,19 @@ export default function Tag({ item, handles }) {
         style={buttonStyle(item.id)}>
         {item.text}
       </button>
-      <button
-        className='edit-tag-button'>
-        &#9998;
-      </button>
-      <button
-        className='delete-tag-button'
-        onClick={handleDeleteTag}>
-        &#10006;
-      </button>
+      {item.id !== noneTagId && (
+        <span>
+          <button
+            className='edit-tag-button'>
+            &#9998;
+          </button>
+          <button
+            className='delete-tag-button'
+            onClick={handleDeleteTag}>
+            &#10006;
+          </button>
+        </span>
+      )}
     </div>
   )
 }
