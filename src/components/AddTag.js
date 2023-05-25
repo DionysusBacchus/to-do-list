@@ -15,7 +15,7 @@ export default function AddTag ({ onAdd }) {
 
   if (isEditing) {
     return (
-      <InputField handleAddItem={handleRecieveInput}/>
+      <InputField onEnter={handleRecieveInput}/>
     );
   }
 

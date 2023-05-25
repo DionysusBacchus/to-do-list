@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 
-export default function InputField({ handleAddItem }) {
+export default function InputField({ onChange, onEnter, onBlur, initialValue }) {
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(initialValue || '');
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
+    onChange && onChange(event.target.value);
   };
 
   const handleInputConfirm = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (inputValue.trim() !== '') {
-        handleAddItem(inputValue);
+        onEnter(inputValue);
         setInputValue('');
       }
     }
   };
+
+  const handleInputBlur = () => {
+    onBlur && onBlur(inputValue);
+  }
 
   return (
     <input
@@ -24,6 +29,7 @@ export default function InputField({ handleAddItem }) {
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleInputConfirm}
+        onBlur={handleInputBlur}
         autoFocus
     />
   )
