@@ -9,6 +9,9 @@ export default function Dropdown({ list, handleChooseItem, initialValue }) {
       if (item) {
         setValue(item.text);
       }
+      else {
+        setValue('None');
+      }
     }
   }, [list, initialValue])
 
